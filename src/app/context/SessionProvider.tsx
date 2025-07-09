@@ -25,7 +25,7 @@ export const SessionProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     // check if user is logged in
-    if (!isLoaded || !user?.id) return;
+    if (!isLoaded) return;
     if (!isSignedIn) {
       router.push("/sign-in");
       return;
