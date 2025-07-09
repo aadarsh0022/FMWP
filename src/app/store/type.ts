@@ -1,4 +1,4 @@
-export type SessionContextType = {
+export type User = {
   name: string;
   email: string;
   mobile: string;

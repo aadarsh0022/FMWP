@@ -1,52 +1,43 @@
-"use client";
-
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  ReactNode,
-} from "react";
-import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { SessionContextType } from "./type";
-import { defaultSession } from "./constant";
+import { createContext, useContext, useEffect, ReactNode } from "react";
 
-// 👇 Create context
-const SessionContext = createContext<SessionContextType | null>(null);
+// third party
+import { useUser } from "@clerk/nextjs";
 
-// 👇 Provider
+// types
+import { User } from "../store/type";
+
+// constants
+import { useGetUserQuery } from "../store/auth/authApiSlice";
+
+// Create context
+const SessionContext = createContext<User | null>(null);
+
+// Provider
 export const SessionProvider = ({ children }: { children: ReactNode }) => {
-  const { isSignedIn, user } = useUser();
+  const { isSignedIn, user, isLoaded } = useUser();
   const router = useRouter();
 
-  const [userData, setUserData] = useState<SessionContextType>(defaultSession);
+  const { data } = useGetUserQuery(user?.id, {
+    skip: !isSignedIn,
+    refetchOnMountOrArgChange: true,
+  });
 
   useEffect(() => {
-    const fetchDbUser = async () => {
-      if (!isSignedIn) {
-        router.push("/sign-in");
-        return;
-      }
-      if (!user?.id) return;
-
-      try {
-        const res = await fetch(`/api/users/${user.id}`);
-        if (!res.ok) throw new Error("Failed to fetch user");
-        const data = await res.json();
-        setUserData(data);
-      } catch (error) {
-        console.error("Error loading user data:", error);
-      }
-    };
-
-    fetchDbUser();
+    // check if user is logged in
+    if (!isLoaded || !user?.id) return;
+    if (!isSignedIn) {
+      router.push("/sign-in");
+      return;
+    }
   }, [user?.id, isSignedIn, router]);
 
+  // if (!isLoaded) {
+  //   return <div>Loading session...</div>;
+  // }
+
   return (
-    <SessionContext.Provider value={userData}>
-      {children}
-    </SessionContext.Provider>
+    <SessionContext.Provider value={data}>{children}</SessionContext.Provider>
   );
 };
 
