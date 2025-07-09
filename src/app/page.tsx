@@ -1,7 +1,6 @@
 "use client";
 
 import { SignedIn, UserButton } from "@clerk/nextjs";
-import Link from "next/link";
 
 export default function LoginPage() {
   return (
