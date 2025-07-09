@@ -26,7 +26,14 @@ const SessionContext = createContext<SessionContextType | undefined>(undefined);
 // 👇 Provider
 export const SessionProvider = ({ children }: { children: ReactNode }) => {
   const { isSignedIn, user } = useUser();
-  const [userData, setUserData] = useState<SessionContextType>(null);
+  const [userData, setUserData] = useState<SessionContextType>({
+    name: "",
+    email: "",
+    mobile: "",
+    profileImageUrl: "",
+    monthlyIncome: 0,
+    salaryDate: 0,
+  });
   //   const [isLoading, setIsLoading] = useState<boolean>(false);
   console.log(user?.id);
 
