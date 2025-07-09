@@ -7,59 +7,41 @@ import {
   useState,
   ReactNode,
 } from "react";
-
-// third party
 import { useUser } from "@clerk/nextjs";
-
-type SessionContextType = {
-  name: string;
-  email: string;
-  mobile: string;
-  profileImageUrl: string;
-  monthlyIncome: number;
-  salaryDate: number;
-};
+import { useRouter } from "next/navigation";
+import { SessionContextType } from "./type";
+import { defaultSession } from "./constant";
 
 // 👇 Create context
-const SessionContext = createContext<SessionContextType | undefined>(undefined);
+const SessionContext = createContext<SessionContextType | null>(null);
 
 // 👇 Provider
 export const SessionProvider = ({ children }: { children: ReactNode }) => {
   const { isSignedIn, user } = useUser();
-  const [userData, setUserData] = useState<SessionContextType>({
-    name: "",
-    email: "",
-    mobile: "",
-    profileImageUrl: "",
-    monthlyIncome: 0,
-    salaryDate: 0,
-  });
-  //   const [isLoading, setIsLoading] = useState<boolean>(false);
-  console.log(user?.id);
+  const router = useRouter();
+
+  const [userData, setUserData] = useState<SessionContextType>(defaultSession);
 
   useEffect(() => {
     const fetchDbUser = async () => {
-      if (user?.id && isSignedIn) {
-        try {
-          //   setIsLoading(true);
-          const res = await fetch(`/api/users/${user.id}`);
-          const data = await res.json();
-          setUserData(data.user);
-          //   setIsLoading(false);
-        } catch (error) {
-          console.error("Failed to fetch DB user:", error);
-        }
+      if (!isSignedIn) {
+        router.push("/sign-in");
+        return;
+      }
+      if (!user?.id) return;
+
+      try {
+        const res = await fetch(`/api/users/${user.id}`);
+        if (!res.ok) throw new Error("Failed to fetch user");
+        const data = await res.json();
+        setUserData(data);
+      } catch (error) {
+        console.error("Error loading user data:", error);
       }
     };
 
     fetchDbUser();
-  }, [user?.id]);
-
-  // to do need to check later for this issue
-
-  //   if (isLoading) {
-  //     return <div>Loading...</div>;
-  //   }
+  }, [user?.id, isSignedIn, router]);
 
   return (
     <SessionContext.Provider value={userData}>
@@ -68,11 +50,11 @@ export const SessionProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-// 👇 Hook to access session context
+// 👇 Hook
 export const useSession = () => {
   const context = useContext(SessionContext);
-  if (!context) {
-    throw new Error("useSessionContext must be used within a SessionProvider");
+  if (context === null) {
+    throw new Error("useSession must be used within a SessionProvider");
   }
   return context;
 };
