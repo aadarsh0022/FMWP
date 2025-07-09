@@ -10,9 +10,12 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^6.24.0",
+    "mongodb": "^6.17.0",
+    "mongoose": "^8.16.2",
     "next": "14.2.30",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@types/node": "^20",
