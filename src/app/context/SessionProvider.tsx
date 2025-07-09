@@ -27,18 +27,18 @@ const SessionContext = createContext<SessionContextType | undefined>(undefined);
 export const SessionProvider = ({ children }: { children: ReactNode }) => {
   const { isSignedIn, user } = useUser();
   const [userData, setUserData] = useState<SessionContextType>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  //   const [isLoading, setIsLoading] = useState<boolean>(false);
   console.log(user?.id);
 
   useEffect(() => {
     const fetchDbUser = async () => {
       if (user?.id && isSignedIn) {
         try {
-          setIsLoading(true);
+          //   setIsLoading(true);
           const res = await fetch(`/api/users/${user.id}`);
           const data = await res.json();
           setUserData(data.user);
-          setIsLoading(false);
+          //   setIsLoading(false);
         } catch (error) {
           console.error("Failed to fetch DB user:", error);
         }
