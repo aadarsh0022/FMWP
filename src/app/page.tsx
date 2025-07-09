@@ -21,14 +21,13 @@ export default function LoginPage() {
 
         <div className="text-center">
           <p className="text-sm text-gray-600 dark:text-gray-300">
-            Don&apos;t have an account?
             <Link href="/sign-in" className="text-blue-600 hover:text-blue-500">
               Sign up
             </Link>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
           </p>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
         </div>
       </div>
     </div>
