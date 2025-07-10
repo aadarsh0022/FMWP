@@ -29,6 +29,9 @@ export const SessionProvider = ({ children }: { children: ReactNode }) => {
     if (!isSignedIn) {
       router.push("/sign-in");
       return;
+    } else {
+      router.push("/dashboard");
+      return;
     }
   }, [user?.id, isSignedIn, router]);
 
