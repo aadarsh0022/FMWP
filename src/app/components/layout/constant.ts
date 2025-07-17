@@ -3,7 +3,6 @@ import {
   Plus,
   CreditCard,
   Target,
-  FileText,
   Settings,
   CreditCardIcon,
 } from "lucide-react";
