@@ -5,7 +5,7 @@ export function generateNOccurrences(
 ) {
   const occurrences = [];
 
-  let currentDate = new Date(startDate);
+  const currentDate = new Date(startDate);
 
   for (let i = 0; i < count; i++) {
     occurrences.push({
