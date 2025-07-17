@@ -147,19 +147,26 @@ export function Sidebar({
           </nav>
           <footer className="p-3 border-t border-[#1f2937] text-xs text-gray-400">
             {sidebarExpanded ? (
-              <div className="flex justify-between items-center">
-                <p className="text-center sm:text-left">
-                  &copy; {new Date().getFullYear()} FinWise. All rights
-                  reserved.
-                </p>
-                <a
-                  href="https://your-support-link.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-white"
-                >
-                  Help
-                </a>
+              <div className="flex-1 gap-1 flex flex-col justify-between">
+                <div className="flex  justify-between items-center">
+                  <p className="text-center sm:text-left">
+                    Made with ❤️ by Aadarsh.
+                  </p>
+                  <a
+                    href="https://your-support-link.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-white"
+                  >
+                    Help
+                  </a>
+                </div>
+                <div className="flex justify-between items-center">
+                  <p className="text-center sm:text-left">
+                    &copy; {new Date().getFullYear()} FinWise. All rights
+                    reserved.
+                  </p>
+                </div>
               </div>
             ) : (
               <div className="flex justify-center">
