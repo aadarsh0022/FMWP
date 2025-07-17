@@ -11,7 +11,7 @@ export default function NotFound() {
       <Frown className="w-16 h-16 text-gray-500 mb-4" />
       <h1 className="text-4xl font-bold text-gray-800 mb-2">Page Not Found</h1>
       <p className="text-gray-500 mb-6">
-        Sorry, we couldn't find the page you're looking for.
+        Sorry, we couldn&apos;t find the page you&apos;re looking for.
       </p>
       <Link href="/">
         <Button variant="default" size="lg">
