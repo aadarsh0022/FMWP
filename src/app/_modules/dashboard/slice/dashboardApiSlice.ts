@@ -1,17 +1,16 @@
 import { appApi } from "@/app/store/api";
 
+type RecurringPaymentResponse = {
+  success: boolean;
+  data: RecurringPayment[];
+  totalDueThisMonth: number;
+};
+
 type RecurringPayment = {
-  _id: string;
-  userId: string;
   title: string;
+  dueDate: string;
   amount: number;
-  startDate: string;
-  frequency: string;
-  totalOccurrences: number;
-  occurrences: {
-    dueDate: string;
-    status: string;
-  }[];
+  status: string;
   type: string;
   account: string;
   category: string;
@@ -21,7 +20,7 @@ type RecurringPayment = {
 export const authApi = appApi.injectEndpoints({
   endpoints: (builder) => ({
     getUpcomingRecurringPayments: builder.query<
-      RecurringPayment[],
+      RecurringPaymentResponse,
       { month: string; status?: string }
     >({
       query: ({ month, status = "upcoming" }) => ({

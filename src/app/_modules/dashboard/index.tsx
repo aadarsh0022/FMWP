@@ -33,7 +33,7 @@ export default function DashboardPage() {
     status: "upcoming",
   });
 
-  const upcomingEmis: Emi[] = data?.data || [];
+  const upcomingEmis = data?.data || [];
   const totalDue: number = data?.totalDueThisMonth || 0;
 
   const sortedEmis = [...upcomingEmis].sort((a, b) => {
@@ -41,6 +41,8 @@ export default function DashboardPage() {
     const dateB = new Date(b.dueDate).getTime();
     return dateA - dateB;
   });
+
+  console.log("data :", data);
 
   return (
     <div className="p-6 space-y-6">
