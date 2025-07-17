@@ -9,16 +9,6 @@ import {
 import { cn } from "@/lib/utils";
 import { useGetUpcomingRecurringPaymentsQuery } from "./slice/dashboardApiSlice";
 
-type Emi = {
-  title: string;
-  dueDate: string;
-  amount: number;
-  status: "upcoming" | "paid" | "missed";
-  type: string;
-  account: string;
-  category: string;
-};
-
 function formatINR(amount: number): string {
   return new Intl.NumberFormat("en-IN", {
     style: "currency",
