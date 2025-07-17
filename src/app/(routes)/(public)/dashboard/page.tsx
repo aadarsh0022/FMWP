@@ -1,15 +1,7 @@
 "use client";
 
-import {
-  TrendingDown,
-  TrendingUp,
-  DollarSign,
-  Target,
-  ArrowDown,
-  ArrowUp,
-} from "lucide-react";
+import { TrendingDown, TrendingUp, DollarSign, Target } from "lucide-react";
 import { Card, CardContent } from "@/app/components/ui/card";
-import { Separator } from "@/app/components/ui/separator";
 import { cn } from "@/lib/utils";
 
 const formatINR = (amount: number) =>
