@@ -13,7 +13,7 @@ export default function NotFound() {
       <p className="text-gray-500 mb-6">
         Sorry, we couldn&apos;t find the page you&apos;re looking for.
       </p>
-      <Link href="/">
+      <Link href="/dashboard">
         <Button variant="default" size="lg">
           Go Back Home
         </Button>
